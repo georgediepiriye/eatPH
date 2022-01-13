@@ -63,6 +63,22 @@ app.post("/api/v1/restaurants",async(req,res)=>{
     }
 })
 
+//update a restaurant
+app.put("/api/v1/restaurants/:id",async(req,res)=>{
+    try {
+       const results = await db.query("update restaurants set name= $1, location=$2,price_range=$3 where id = $4 returning * ",
+       [req.body.name, req.body.location, req.body.price_range, req.params.id]) 
+       res.status(201).json({
+           status: "success",
+           data:{
+               restaurant: results.rows[0]
+           }
+       })
+    } catch (err) {
+        console.log(err)
+    }
+})
+
 const PORT = process.env.PORT
 app.listen(PORT,()=>{
     console.log(`server is up and listening on port ${PORT}`)
