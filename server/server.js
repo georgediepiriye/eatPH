@@ -24,6 +24,21 @@ app.get("/api/v1/restaurants",async(req,res)=>{
     }
 })
 
+//get a single restaurant
+app.get("/api/v1/restaurants/:id", async(req,res)=>{
+    try {
+        const results = await db.query("select * from restaurants where id = $1",[req.params.id])
+        res.status(200).json({
+            status:'success',
+            data:{
+                restaurants: results.rows[0]
+            }
+        })
+    } catch (err) {
+        console.log(err)
+        
+    }
+})
 
 const PORT = process.env.PORT
 app.listen(PORT,()=>{
