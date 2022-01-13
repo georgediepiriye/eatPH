@@ -5,7 +5,12 @@ const db = require('./db')
 const express = require('express')
 const app = express()
 
+//middleware for logging
 app.use(morgan('dev'))
+
+//middleware to help send json objects in the req.body 
+app.use(express.json())
+
 
 //get all restaurants
 app.get("/api/v1/restaurants",async(req,res)=>{
@@ -37,6 +42,24 @@ app.get("/api/v1/restaurants/:id", async(req,res)=>{
     } catch (err) {
         console.log(err)
         
+    }
+})
+
+//create a restaurant 
+app.post("/api/v1/restaurants",async(req,res)=>{
+    console.log(req.body)
+    try {
+        const results = await db.query("insert into restaurants(name,location,price_range)values($1,$2,$3) returning *",
+        [req.body.name, req.body.location, req.body.price_range])
+        res.status(201).json({
+            status:"success",
+            data:{
+                restaurant: results.rows[0]
+            }
+
+        })
+    } catch (error) {
+        console.log(error)
     }
 })
 
