@@ -79,6 +79,19 @@ app.put("/api/v1/restaurants/:id",async(req,res)=>{
     }
 })
 
+
+//delete a restaurant
+app.delete("/api/v1/restaurants/:id",async(req,res)=>{
+    try {
+        const results = await db.query("delete from restaurants where id = $1",[req.params.id])
+        res.status(204).json({
+            status: "success",
+        })
+    } catch (error) {
+        
+    }
+})
+
 const PORT = process.env.PORT
 app.listen(PORT,()=>{
     console.log(`server is up and listening on port ${PORT}`)
