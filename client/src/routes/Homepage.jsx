@@ -1,9 +1,14 @@
 import React from 'react'
+import AddRestaurant from '../components/Homepage/AddRestaurant'
+import Heading from '../components/Homepage/Heading'
+import RestaurantList from '../components/Homepage/RestaurantList'
 
 function Homepage() {
     return (
         <div>
-            Hompage
+            <Heading/>
+            <AddRestaurant/>
+            <RestaurantList/>
         </div>
     )
 }

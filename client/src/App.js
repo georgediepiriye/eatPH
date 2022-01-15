@@ -5,7 +5,7 @@ import RestaurantDetailsPage from './routes/RestaurantDetailsPage';
 import UpdatePage from './routes/UpdatePage';
 function App() {
   return (
-    <div>
+    <div className='container'>
         <Router>
           <Routes>
             <Route exact path="/" element={<Homepage/>}/>
